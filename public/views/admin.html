@@ -17,7 +17,10 @@
     <div class="w-75 mx-auto mt-5">
       <h2>编辑文章</h2>
       <hr>
-      <form method='post' action='/post' enctype='multipart/form-data'>
+      <form method='post' action='/post'>
+        <div class="form-group">
+          <input name="title" type="text" class="form-control">
+        </div>
         <div class="form-group">
           <label for="exampleFormControlFile1">Example file input</label>
           <textarea name="post" type="textarea" class="form-control" id="exampleFormControlFile1" rows="28"></textarea>
