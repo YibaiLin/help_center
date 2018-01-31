@@ -1,0 +1,19 @@
+{
+  "name": "help_edns",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "client": "cd client && npm start",
+    "server": "nodemon server.js",
+    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\""
+  },
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "markdown-it": "^8.4.0"
+  },
+  "devDependencies": {
+    "concurrently": "^3.5.1"
+  },
+  "license": "MIT"
+}

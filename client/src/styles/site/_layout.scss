@@ -1,0 +1,108 @@
+#header {
+
+}
+
+
+
+
+.sidebar {
+	position: fixed;
+	top: 56px;
+	right: 0;
+	height: calc(100vh - 56px);
+	background-color: #f7f7f7;
+	border-left: 1px solid #ececec;
+
+	.collapse-box {
+		button {
+			background-color: #f7f7f7;
+		    color: rgb(109, 109, 109);
+		    font-size: 14px;
+		    font-weight: 700;
+		    line-height: 3;
+		    text-transform: uppercase;
+		    letter-spacing: 0.08em;
+		    box-shadow: initial;
+
+		    &:hover {
+		    	
+		    	color: rgb(26, 26, 26);
+		    }
+
+		    .icon-down {
+		    	margin-left: 7px;
+			    transform: rotateX(0deg);
+			    transition: -webkit-transform 0.2s ease, transform 0.2s ease;
+		    }
+
+		    .icon-up {
+			    transform: rotateX(180deg);
+		    }
+		}
+
+		.btnOn {
+			color: rgb(26, 26, 26);
+		}
+
+		.collapsing {
+			position: static;
+			transition: none;
+		}
+
+		.multi-collapse {
+			list-style: none;
+
+			.collapse-link {
+				display: inline-block;
+				color: rgb(26, 26, 26);
+				margin-bottom: .5rem;
+
+
+				&:hover, &:active {
+					color: rgb(109, 109, 109);
+					text-decoration: none;
+				}
+
+				&:focus {
+					color: rgb(26, 26, 26);
+					font-weight: 700;
+				}
+
+				.left-mark {
+					width: 4px;
+					height: 25px;
+					padding-left: 16px;
+					position: absolute;
+					left: 18px;
+					border-left: 4px solid rgb(97, 218, 251);
+				}
+			}
+
+			.focus-style {
+				position: static;
+				color: rgb(26, 26, 26);
+				font-weight: 700;
+
+				&:hover {
+					color: rgb(109, 109, 109);	
+				}
+			}
+		}
+	}
+
+}
+
+
+
+#footer {
+	margin-top: 30px;
+	border-top: 1px solid #eeeeee;
+	padding-top: 30px;
+	color: #777777;
+}
+
+.gallery-image img{
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
