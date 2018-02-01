@@ -1,6 +1,14 @@
 const express = require('express');
 const bodyParser = require('body-parser')
 const path = require('path');
+const mongoose = require('mongoose');
+const dbUrl = 'mongodb://localhost/help_docs'
+
+mongoose.Promise = require('bluebird');
+mongoose.connect(dbUrl)
+		.then(() => console.log('MongoDB is connecting now!'))
+		.catch(err => console.log(err))
+
 
 const app = express();
 const port = process.env.PORT || 5000;

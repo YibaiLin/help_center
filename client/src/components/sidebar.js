@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { Link} from 'react-router-dom';
-import Titles from '../config/titles'
+import request from '../config/request';
 
 
 class Post extends Component {
 
 	_setChildCurrent = (titleId, lastTitleId, postId) => {
-		console.log('\nready to change current post')
+		// console.log('\nready to change current post')
     	this.props.changeCurrent(titleId, lastTitleId, postId)
     }
 
@@ -14,17 +14,17 @@ class Post extends Component {
 			const subData = this.props.subData;
 			const titleId = this.props.titleId;
 			const currentPost = this.props.currentPost;
-			const isCurPost = currentPost.tId === titleId && (currentPost.pId === subData.id)
+			const isCurPost = currentPost.tId === titleId && (currentPost.pId === subData._id)
 
-			console.log('\n当前POST：{ title: ' + currentPost.tId + ', post: ' + currentPost.pId + ' }')
+			// console.log('\n当前POST：{ title: ' + currentPost.tId + ', post: ' + currentPost.pId + ' }')
 
 			return (
 				<li className={"collapse-item"} >
 	    			<Link className={"collapse-link " + (isCurPost ? 'focus-style' : '')} 
 	    				to={subData.path} 
-	    				onClick={() => this._setChildCurrent(titleId, titleId, subData.id)}>
+	    				onClick={() => this._setChildCurrent(titleId, titleId, subData._id)}>
 	    				<span className={"left-mark " + (isCurPost ? '' : 'd-none' )}></span>
-	    				{subData.name}
+	    				{subData.title}
 	    				</Link>
 	    		</li>
 			);
@@ -36,7 +36,7 @@ class Title extends  Component {
 
     _setCurrent = (titleId, lastTitleId, postId) => {
 
-    	console.log('\nready to change current title and last title')
+    	// console.log('\nready to change current title and last title')
     	if (this.props.currentTitle === titleId) {
     		titleId = '-1';
     	}
@@ -46,16 +46,17 @@ class Title extends  Component {
     render() {
     	const currentPost = this.props.currentPost;
     	const data = this.props.data;
-    	const titleId = data.id;
+    	const titleId = data._id;
     	const isCurTitle = this.props.currentTitle === titleId;
 
-    	console.log(data.title + ' is current title: ' + isCurTitle + '\n')
+    	// console.log(data.docs + '\n')
 
     	return (
+
     		<div className="my-2 collapse-box">
                 <button className={"btn d-block px-0 " + (isCurTitle ? "btnOn" : "")} type="button" 
                   onClick={() => this._setCurrent(titleId, currentPost.tId, currentPost.pId)}>
-                  {data.title}
+                  {data.name}
                   <svg viewBox="0 0 926.23699 573.74994" version="1.1" x="0px" y="0px" width="10" height="10" 
                         className={isCurTitle ? "icon-up" : "icon-down"} 
                         >
@@ -76,8 +77,8 @@ class Title extends  Component {
                 {
                 	isCurTitle
                 	? <ul className="multi-collapse px-0">
-							{data.subtitle.map(subData => 
-								<Post titleId={titleId} key={subData.id} subData={subData} currentTitle={this.props.currentTitle} currentPost={this.props.currentPost}
+							{data.docs.map(subData => 
+								<Post titleId={titleId} key={subData._id} subData={subData} currentTitle={this.props.currentTitle} currentPost={this.props.currentPost}
 									changeCurrent={this.props.changeCurrent}/>
 							)}
 					  </ul>
@@ -90,11 +91,31 @@ class Title extends  Component {
 
 export default class Sidebar extends Component {
 	state = {
+		titles: [],
+
 		currentTitle: '-1',
 		currentPost: {
 			tId: '-1',
 			pId: '-1'
 		}
+	}
+
+	componentDidMount() {
+		this.fetchCategories();
+			
+	}
+
+	fetchCategories = async () => {
+		let that = this;
+		await	request.get('/getCategories')
+					   .then(res => {
+					   		console.log(res.success);
+					   		console.log(res.data);
+					   		if (res.success && res.data) {
+					   			that.setState({titles: res.data})
+					   		}
+					   })
+					   .catch(err => console.log(err));
 	}
 
 	_changeCurrent = (titleId, lastTitleId, postId) => {
@@ -110,11 +131,12 @@ export default class Sidebar extends Component {
 	}
 
 	render() {
-		console.log('当前Title: title: ' + this.state.currentTitle + ', 当前POST：{ title: ' + this.state.currentPost.tId + ', post: ' + this.state.currentPost.pId + ' }')
+		const titles = this.state.titles;
+		// console.log('当前Title: title: ' + this.state.currentTitle + ', 当前POST：{ title: ' + this.state.currentPost.tId + ', post: ' + this.state.currentPost.pId + ' }')
 		return (
 			<div id="sidebar" className='col-4 py-5 pl-5 sidebar'>
-				{Titles.map(title => 
-					<Title key={title.id} data={title} currentTitle={this.state.currentTitle} 
+				{titles.map(title => 
+					<Title key={title._id} data={title} currentTitle={this.state.currentTitle} 
 						currentPost={this.state.currentPost} changeCurrent={this._changeCurrent}/>
 				)}
 			</div>
