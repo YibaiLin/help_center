@@ -1,15 +1,52 @@
-#header {
-
+.w-60 {
+	width: 60%;
 }
 
+.searchIcon {
+	background-color: #20232a;
+	padding-left: 0.375rem;
+	padding-right: 0rem;
+	border: none;
+}
 
+.input-focus {
+	background-color: #373940;
+}
+
+#goSearch {
+	background-color: #20232a;
+	border: none;
+
+	&:focus {
+		background-color: #373940;
+		-webkit-box-shadow: initial;
+		box-shadow: initial;
+	}
+	&:blur {
+		background-color: #20232a
+	}
+}
+
+header {
+	background-color: #20232a!important;
+	height: 4rem;
+
+	nav {
+		background-color: #20232a!important;
+		height: 4rem;
+	}
+}
+
+.article-container {
+	padding-right: 6rem;
+}
 
 
 .sidebar {
 	position: fixed;
-	top: 56px;
+	top: 4rem;
 	right: 0;
-	height: calc(100vh - 56px);
+	height: calc(100vh - 4rem);
 	background-color: #f7f7f7;
 	border-left: 1px solid #ececec;
 

@@ -4,11 +4,12 @@ const Post = require('../models/post');
 const Category = require('../models/category');
 const mongoose = require('mongoose');
 
+exports.index = function(req, res) {
+    res.render('dashboard');
+}
+
 exports.page = function(req, res) {
-    const options = {
-    	root: __dirname + '../../../public/views/'
-    }
-    res.sendFile('admin.html', options);
+    res.render('admin');
 }
 
 exports.publish = async function(req, res) {
@@ -50,9 +51,6 @@ exports.getDocs = async function(req, res) {
 
 exports.getCategories = async function(req, res) {
     const categories = await Category.find({}).populate('docs').exec();
-
-    console.log('categories %s', categories[0].name)
-    console.log('categories.docs', categories[0].docs)
 
     res.send({
         success: true,

@@ -8,14 +8,21 @@
     "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\""
   },
   "dependencies": {
+    "bcrypt": "^1.0.3",
     "bluebird": "^3.5.1",
     "body-parser": "^1.18.2",
+    "connect-mongo": "^2.0.1",
+    "ejs": "^2.5.7",
     "express": "^4.16.2",
+    "express-session": "^1.15.6",
     "markdown-it": "^8.4.0",
     "mongoose": "^5.0.2"
   },
   "devDependencies": {
-    "concurrently": "^3.5.1"
+    "concurrently": "^3.5.1",
+    "del": "^3.0.0",
+    "gulp": "^4.0.0",
+    "gulp-ruby-sass": "^3.0.0"
   },
   "license": "MIT"
 }

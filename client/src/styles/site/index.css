@@ -6002,11 +6002,43 @@ a.text-dark:focus, a.text-dark:hover {
   .table-bordered td {
     border: 1px solid #ddd !important; } }
 
+.w-60 {
+  width: 60%; }
+
+.searchIcon {
+  background-color: #20232a;
+  padding-left: 0.375rem;
+  padding-right: 0rem;
+  border: none; }
+
+.input-focus {
+  background-color: #373940; }
+
+#goSearch {
+  background-color: #20232a;
+  border: none; }
+  #goSearch:focus {
+    background-color: #373940;
+    -webkit-box-shadow: initial;
+    box-shadow: initial; }
+  #goSearch:blur {
+    background-color: #20232a; }
+
+header {
+  background-color: #20232a !important;
+  height: 4rem; }
+  header nav {
+    background-color: #20232a !important;
+    height: 4rem; }
+
+.article-container {
+  padding-right: 6rem; }
+
 .sidebar {
   position: fixed;
-  top: 56px;
+  top: 4rem;
   right: 0;
-  height: calc(100vh - 56px);
+  height: calc(100vh - 4rem);
   background-color: #f7f7f7;
   border-left: 1px solid #ececec; }
   .sidebar .collapse-box button {
