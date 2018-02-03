@@ -6462,7 +6462,7 @@ a.text-dark:focus, a.text-dark:hover {
   .table-bordered th,
   .table-bordered td {
     border: 1px solid #ddd !important; } }
-.sign-box {
+.signin-container {
   position: absolute;
   left: 50%;
   top: 40%;
@@ -6470,7 +6470,7 @@ a.text-dark:focus, a.text-dark:hover {
   max-width: 600px;
   width: 90%; }
 
-.center-form {
+.signin-box {
   -webkit-box-shadow: 0 2px 1px #f1f1f1;
   -moz-box-shadow: 0 2px 1px #f1f1f1;
   box-shadow: 0 2px 1px #f1f1f1;
@@ -6487,6 +6487,9 @@ a.text-dark:focus, a.text-dark:hover {
   line-height: 185px;
   padding-right: 20px; }
 
+.signin-form {
+  margin-left: 1rem; }
+
 .brand-img {
   transform: translate(0, -8%); }
 
@@ -6495,5 +6498,44 @@ a.text-dark:focus, a.text-dark:hover {
   font-size: 1.25rem;
   font-weight: 400; }
 
-.form-wrap {
-  margin-left: 1rem; }
+.signup-box {
+  position: absolute;
+  left: 50%;
+  top: 40%;
+  transform: translate(-50%, -50%);
+  max-width: 600px;
+  width: 90%;
+  -webkit-box-shadow: 0 2px 1px #f1f1f1;
+  -moz-box-shadow: 0 2px 1px #f1f1f1;
+  box-shadow: 0 2px 1px #f1f1f1;
+  background-color: white;
+  border-radius: .3em;
+  border: 1px solid #e9e9e9;
+  border-bottom-color: #ddd;
+  margin-bottom: 2em;
+  padding: 30px; }
+
+.left-sidebar {
+  position: fixed;
+  left: 0;
+  top: 56px;
+  height: calc(100vh - 56px);
+  max-width: 200px;
+  width: 15%; }
+  .left-sidebar .child-item {
+    display: none; }
+  .left-sidebar button, .left-sidebar .child-item a {
+    border-radius: initial; }
+    .left-sidebar button:focus, .left-sidebar .child-item a:focus {
+      box-shadow: initial !important; }
+  .left-sidebar .child-name {
+    text-indent: 2rem;
+    color: rgba(255, 255, 255, 0.5); }
+  .left-sidebar .child-focus {
+    color: #fff; }
+  .left-sidebar .triangle {
+    display: none;
+    position: absolute;
+    right: 0;
+    border: 10px solid;
+    border-color: transparent white transparent transparent; }

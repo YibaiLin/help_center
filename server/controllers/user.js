@@ -1,16 +1,21 @@
 'use strict'
 
 const User = require('../models/user');
+const config = require('../config/config');
 
 exports.showSignup = function(req, res){
+	const title = config.signup.title;
+
     res.render('signup', {
-        title: '注册页面'
+        title: title
     })
 }
 
 exports.showSignin = function(req, res){
+	const title = config.signin.title;
+
     res.render('signin', {
-        title: '登录页面'
+        title: title
     })
 }
 
@@ -26,18 +31,26 @@ exports.signup = function(req, res) {
 			console.log('用户已存在!');
 			return res.redirect('/signin');
 		}
+
+		if (_user.password !== _user.confirmPwd) {
+			console.log('两次密码不一样')
+			return res.redirect('/signup')
+		}
+
+		// 移除 cofirmPwd 属性
+		delete _user.confirmPwd;
 		
 		let user1 = new User(_user) ;
 		user1.save((err, user) => {
 			if (err) return console.log(err);
 			req.session.user = user;
-			res.redirect('/api/dashboard');
+			res.redirect('/admin/dashboard');
 		})
 	})
 }
 
 exports.signin = function(req, res) {
-	let _user = req.body.user;
+	let _user = Object.assign({}, req.body);
 	let name = _user.name;
 	let password = _user.password;
 
@@ -59,12 +72,38 @@ exports.signin = function(req, res) {
 			req.session.user = user;
 
 			if (user.role > 1) {
-				return redirect('/api/dashboard');
+				return res.redirect('/admin/dashboard');
 			}
 
-			return redirect('/')
+			return res.redirect('http://localhost:3000')
 
 		})
 	})
 
+}
+
+//logout
+exports.logout = function (req, res) {
+    delete req.session.user;
+
+    res.redirect('http://localhost:3000')
+}
+
+exports.signinRequired = function(req, res, next) {
+	let user = req.session.user;
+
+	if (!user) {
+		return res.redirect('/signin')
+	}
+	
+	next();
+}
+
+exports.adminRequired = function(req, res, next){
+    let user = req.session.user
+
+    if(user.role < 10) {
+        return res.redirect('http://localhost:3000')
+    }
+    next()
 }

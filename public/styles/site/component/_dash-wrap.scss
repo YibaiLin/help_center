@@ -1,0 +1,39 @@
+.left-sidebar {
+	position: fixed;
+	left: 0;
+	top: 56px;
+	height: calc(100vh - 56px);
+	max-width: 200px;
+	width: 15%;
+
+	.child-item {
+		display: none;
+	}
+
+	button, .child-item a {
+		border-radius: initial;
+
+		&:focus {
+			box-shadow: initial!important;
+		}
+	}
+
+	.child-name {
+		text-indent: 2rem;
+		color: rgba(255,255,255,.5);
+	}
+
+	.child-focus {
+		color: #fff;
+	}
+
+	.triangle {
+		display: none;
+	    position: absolute;
+	    right: 0;
+	    border: 10px solid;
+	    border-color: transparent white transparent transparent;
+	}
+
+}
+

@@ -36,5 +36,11 @@ app.use(session({
 
 require('./server/config/route')(app);
 
+app.use(function(req, res, next) {
+  res.render('404', {
+  	title: 'Edns-Not found'
+  });
+});
+
 const port = process.env.PORT || 5000;
 app.listen(port, () => console.log(`Listening on port ${port}`));

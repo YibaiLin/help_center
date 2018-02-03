@@ -6057,7 +6057,9 @@ header {
       transform: rotateX(0deg);
       transition: -webkit-transform 0.2s ease, transform 0.2s ease; }
     .sidebar .collapse-box button .icon-up {
-      transform: rotateX(180deg); }
+      margin-left: 7px;
+      transform: rotateX(180deg);
+      transition: -webkit-transform 0.2s ease, transform 0.2s ease; }
   .sidebar .collapse-box .btnOn {
     color: #1a1a1a; }
   .sidebar .collapse-box .collapsing {

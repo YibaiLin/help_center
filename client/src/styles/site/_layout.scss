@@ -73,7 +73,9 @@ header {
 		    }
 
 		    .icon-up {
+		    	margin-left: 7px;
 			    transform: rotateX(180deg);
+			    transition: -webkit-transform 0.2s ease, transform 0.2s ease;
 		    }
 		}
 

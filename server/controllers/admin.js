@@ -3,13 +3,24 @@ const fs = require('fs');
 const Post = require('../models/post');
 const Category = require('../models/category');
 const mongoose = require('mongoose');
+const config = require('../config/config');
 
 exports.index = function(req, res) {
-    res.render('dashboard');
+    const title = config.dashboard.title;
+    const name = req.session.user.name;
+
+    res.render('dashboard', {
+        title: title,
+        name: name
+    });
 }
 
 exports.page = function(req, res) {
-    res.render('admin');
+    const title = config.edit.title;
+
+    res.render('edit', {
+        title: title
+    });
 }
 
 exports.publish = async function(req, res) {
