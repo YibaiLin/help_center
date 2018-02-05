@@ -10,7 +10,7 @@ export default class SearchBox extends Component {
 		return (
 			<div className="input-group">
 				<div className="input-group-prepend">
-				  <span className={"input-group-text searchIcon " + (focus ? 'input-focus' : '')}><img width='20' src='image/search.svg'/></span>
+				  <span className={"input-group-text searchIcon " + (focus ? 'input-focus' : '')}><img width='20' src='image/search.svg' alt='search-icon'/></span>
 				  
 				</div>
 				<input id="goSearch" type="text" className="form-control" placeholder="Search"

@@ -6539,3 +6539,9 @@ a.text-dark:focus, a.text-dark:hover {
     right: 0;
     border: 10px solid;
     border-color: transparent white transparent transparent; }
+
+.main-area {
+  min-height: 130vh;
+  background-color: #F3F4F4;
+  margin-left: 200px;
+  margin-top: 56px; }

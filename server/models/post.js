@@ -8,6 +8,7 @@ const PostSchema = new Schema({
 	title: String,
 	path: String,
 	content: String,
+	author: String,
 
 	meta: {
 		createAt: {

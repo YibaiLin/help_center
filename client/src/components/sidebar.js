@@ -109,10 +109,15 @@ export default class Sidebar extends Component {
 		let that = this;
 		await	request.get('/getCategories')
 					   .then(res => {
-					   		console.log(res.success);
-					   		console.log(res.data);
 					   		if (res.success && res.data) {
-					   			that.setState({titles: res.data})
+					   			that.setState({
+					   				titles: res.data,
+					   				currentTitle: res.data[0]._id,
+					   				currentPost: {
+					   					tId: res.data[0]._id,
+					   					pId: res.data[0].docs[0]._id
+					   				}
+					   			})
 					   		}
 					   })
 					   .catch(err => console.log(err));
@@ -132,7 +137,7 @@ export default class Sidebar extends Component {
 
 	render() {
 		const titles = this.state.titles;
-		// console.log('当前Title: title: ' + this.state.currentTitle + ', 当前POST：{ title: ' + this.state.currentPost.tId + ', post: ' + this.state.currentPost.pId + ' }')
+		console.log('当前Title: title: ' + this.state.currentTitle + ', 当前POST：{ title: ' + this.state.currentPost.tId + ', post: ' + this.state.currentPost.pId + ' }')
 		return (
 			<div id="sidebar" className='col-4 py-5 pl-5 sidebar'>
 				{titles.map(title => 

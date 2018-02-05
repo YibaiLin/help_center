@@ -1,8 +1,5 @@
-const path = require('path');
-const fs = require('fs');
 const Post = require('../models/post');
 const Category = require('../models/category');
-const mongoose = require('mongoose');
 const config = require('../config/config');
 
 exports.index = function(req, res) {
@@ -15,41 +12,32 @@ exports.index = function(req, res) {
     });
 }
 
-exports.page = function(req, res) {
+exports.allPosts = async function(req, res) {
     const title = config.edit.title;
+    const name = req.session.user.name;
+    const posts = await Post.find().populate('category').exec();
 
-    res.render('edit', {
-        title: title
-    });
-}
-
-exports.publish = async function(req, res) {
-    const title = req.body.title;
-    const category = req.body.category;
-    const content = req.body.post;
-
-    let category1 = await Category.findOne({name: category}).exec()
-
-    if (!category1) {
-        category1 = new Category({
-          name: category
-        })
-    }
-
-    let post1 = new Post({
-        category: category1._id,
+    res.render('all-posts', {
         title: title,
-        path: title.replace(/\s/g, '-') + '.html',
-        content: content
+        name: name,
+        posts: posts
     });
-
-    category1.docs.push(post1._id);
-    await category1.save();
-
-    await post1.save();
-
-    res.send('<h1>发表成功!</h1>')
 }
+
+exports.allCategories = function(req, res) {
+    const title = config.edit.title;
+    const name = req.session.user.name;
+
+    res.render('all-categories', {
+        title: title,
+        name: name
+    });
+}
+
+
+
+
+
 
 exports.getDocs = async function(req, res) {
     const posts = await Post.find().exec();
