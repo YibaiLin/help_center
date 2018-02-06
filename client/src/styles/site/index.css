@@ -6025,11 +6025,17 @@ a.text-dark:focus, a.text-dark:hover {
     background-color: #20232a; }
 
 header {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 4rem;
   background-color: #20232a !important;
-  height: 4rem; }
+  z-index: 10; }
   header nav {
     background-color: #20232a !important;
-    height: 4rem; }
+    height: 4rem;
+    z-index: 10; }
 
 .article-container {
   padding-right: 6rem; }
@@ -6044,7 +6050,7 @@ header {
   .sidebar .collapse-box button {
     background-color: #f7f7f7;
     color: #6d6d6d;
-    font-size: 14px;
+    font-size: 1rem;
     font-weight: 700;
     line-height: 3;
     text-transform: uppercase;
@@ -6061,7 +6067,8 @@ header {
       transform: rotateX(180deg);
       transition: -webkit-transform 0.2s ease, transform 0.2s ease; }
   .sidebar .collapse-box .btnOn {
-    color: #1a1a1a; }
+    color: #1a1a1a;
+    font-weight: 700; }
   .sidebar .collapse-box .collapsing {
     position: static;
     transition: none; }

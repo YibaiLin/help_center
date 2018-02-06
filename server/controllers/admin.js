@@ -24,13 +24,18 @@ exports.allPosts = async function(req, res) {
     });
 }
 
-exports.allCategories = function(req, res) {
+exports.allCategories = async function(req, res) {
     const title = config.edit.title;
     const name = req.session.user.name;
 
+    const categories = await Category.find({}).exec();
+
     res.render('all-categories', {
         title: title,
-        name: name
+        name: name,
+        category: '',
+        add: true, // 保存还是更新
+        categories: categories
     });
 }
 

@@ -5,7 +5,10 @@ const Schema = mongoose.Schema;
 
 const PostSchema = new Schema({
 	category: {type: Schema.Types.ObjectId, ref: 'Category'},
-	title: String,
+	title: {
+		unique: true,
+		type: String
+	},
 	path: String,
 	content: String,
 	author: String,

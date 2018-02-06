@@ -30,7 +30,7 @@
 				<td><%=posts[i].author %></td>
 				<td><%=posts[i].category.name %></td>
 				<td><%=(new Date(posts[i].meta.updateAt)).toLocaleDateString() %></td>
-				<td><a class="mr-3 text-danger" href="/admin/posts?post=<%=posts[i].title %>&action=edit">更新</a><a class="text-danger" href="/admin/posts?post=<%=posts[i].title %>&action=delete">删除</a></td>
+				<td><a class="mr-3 text-primary" href="/admin/posts?post=<%=posts[i].path %>&action=modify">更新</a><a class="text-danger" href="/admin/posts?post=<%=posts[i].path %>&action=delete">删除</a></td>
 			</tr>
 		<%}%>
 	</tbody>

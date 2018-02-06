@@ -1,14 +1,9 @@
 <h3>新建分类</h3>
 <hr>
-<form action="" method="get">
+<form action="<% if (add) {%>/admin/category/add<%} else {%>/admin/categories/<%=category.slug%>/update<%}%>" method="post">
 	<div class="form-group row">
 		<div class="col-sm-4">
-			<input type="text" class="form-control" placeholder="分类名称" name='category'>
-		</div>
-	</div>
-	<div class="form-group row">
-		<div class="col-sm-4">
-			<input type="text" class="form-control" placeholder="分类简称" name='slug'>
+			<input type="text" class="form-control" placeholder="分类名称" name='category' value="<% if (category) {%><%=category.name%><%} else {%><%=category%><%}%>">
 		</div>
 	</div>
 	<div class="row">
@@ -23,27 +18,21 @@
 <table class="table table-hover mt-3 bg-white">
 	<thead class="bg-primary text-white">
 		<tr>
-			<td scope="col">#</td>
-			<td scope="col">category</td>
-			<td scope="col">date</td>
+			<td scope="col">序号</td>
+			<td scope="col">分类</td>
+			<td scope="col">日期</td>
+			<td scope="col">操作</td>
 		</tr>
 	</thead>
 	<tbody class="text-secondary">
-		<tr>
-			<td scope="row">1</td>
-			<td><a href="#" class="list-none">quick start</a></td>
-			<td>2018-02-02</td>
-		</tr>
-		<tr>
-			<td scope="row">2</td>
-			<td><a href="#">edns</a></td>
-			<td>2018-02-02</td>
-		</tr>
-		<tr>
-			<td scope="row">3</td>
-			<td><a href="#">edns</a></td>
-			<td>2018-02-02</td>
-		</tr>
+		<% for (var i=0; i < categories.length; i++) {%>
+			<tr>
+				<td scope="row"><%=i+1%></td>
+				<td><a href="#" class="list-none"><%=categories[i].name%></a></td>
+				<td><%=(new Date(categories[i].meta.updateAt)).toLocaleDateString()%></td>
+				<td><a class="mr-3 text-primary" href="/admin/categories?category=<%=categories[i].slug %>&action=modify">修改</a><a class="text-danger" href="/admin/categories?category=<%=categories[i].slug %>&action=delete">删除</a></td>
+			</tr>
+		<%}%>
 	</tbody>
 </table>
 

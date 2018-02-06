@@ -2,30 +2,82 @@ const Post = require('../models/post');
 const Category = require('../models/category');
 const config = require('../config/config');
 
-exports.edit = async function(req, res) {
+exports.action = async function(req, res) {
 	const webpageTitle = config.edit.title;
     const user = req.session.user.name;
-    const _title = req.query.post;
+    const _path = req.query.post;
     const action = req.query.action;
 
-    if (action === 'edit') {
-
-    	console.log('标题： ' + _title)
+    if (action === 'modify') {
 
     	let categories = await Category.find().exec();
-    	let post = await Post.find().exec();
+    	let post = await Post.findOne({path: _path}).populate('category').exec();
 
         res.render('edit-post', {
         	title: webpageTitle,
         	name: user,
-        	post: post[0],
+        	post: post,
         	categories: categories
         })
     }
+
+    if (action === 'delete') {
+        let post = await Post.findOne({path: _path}).populate('category').exec();
+
+        let _docs =  post.category.docs;
+        
+        for (var i=0; i < _docs.length; i++) {
+            if (_docs[i].str === _post._id.str) {
+                _docs.splice(i, 1);
+                i--;
+            }
+        }
+
+        await Category.findOneAndUpdate({name: post.category.name}, {$set: {docs: _docs}}).exec();
+
+        await Post.deleteOne({path: _path}).exec()  
+
+       
+        return res.redirect('/admin/all-posts')
+
+    }
 }
 
-exports.update = function(req, res) {
+exports.update = async function(req, res) {
+    const title = req.body.title;
+    const category = req.body.category;
+    const content = req.body.content;
+    const author = req.session.user.name;
 
+    const _path = req.params.post;
+    const _post = await Post.findOne({path: _path}).populate('category').exec();
+
+    let _docs =  _post.category.docs;
+
+    for (var i=0; i < _docs.length; i++) {
+        if (_docs[i].str === _post._id.str) {
+            _docs.splice(i, 1);
+            i--;
+        }
+    }
+
+    await Category.findOneAndUpdate({name: _post.category.name}, {$set: {docs: _docs}}).exec();
+
+
+    let category1 = await Category.findOne({name: category}).exec()
+    let postUpdated = await Post.findOneAndUpdate({path: _path}, {
+        category: category1._id,
+        title: title,
+        path: title.replace(/\s/g, '-') + '.html',
+        content: content,
+        author: author
+    }, {new: true}).exec()
+
+    category1.docs.push(postUpdated._id);
+
+    await category1.save();
+
+    return res.redirect('/admin/all-posts');
 }
 
 exports.publish = async function(req, res) {
@@ -55,7 +107,7 @@ exports.publish = async function(req, res) {
 
     await post1.save();
 
-    res.send('<h1>发表成功!</h1>')
+    return res.redirect('/admin/all-posts')
 }
 
 exports.addNew = async function(req, res) {

@@ -110,12 +110,13 @@ export default class Sidebar extends Component {
 		await	request.get('/getCategories')
 					   .then(res => {
 					   		if (res.success && res.data) {
+					   			let data = res.data;
 					   			that.setState({
 					   				titles: res.data,
-					   				currentTitle: res.data[0]._id,
+					   				currentTitle: data.length > 0 ? data[0]._id : -1,
 					   				currentPost: {
-					   					tId: res.data[0]._id,
-					   					pId: res.data[0].docs[0]._id
+					   					tId: data.length > 0 ? data[0]._id : -1,
+					   					pId: data.length > 0 ? (data[0].docs > 0 ? data[0].docs[0]._id : -1) : -1
 					   				}
 					   			})
 					   		}
