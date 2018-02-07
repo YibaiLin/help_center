@@ -7,12 +7,12 @@ const config = {
 		}
 	},
 	api: {
-		base: 'http://localhost:5000/',
-		verify: 'api/u/verify',
-		signin: 'api/u/signin',
-		signup: 'api/u/signup',
-		posts: 'api/posts',
-		categories: 'api/categories'
+		// base: 'http://localhost:5000',
+		verify: '/api/u/verify',
+		signin: '/api/u/signin',
+		signup: '/api/u/signup',
+		posts: '/api/posts',
+		categories: '/api/categories'
 	}
 }
 

@@ -1,7 +1,24 @@
 const Admin = require('../controllers/admin');
 const User = require('../controllers/user');
 const Post = require('../controllers/post');
+const Photo = require('../controllers/photo');
 const Category = require('../controllers/category');
+const multer = require('multer');
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'public/image/')
+  },
+  filename: function (req, file, cb) {
+  	let ext = file.mimetype;
+  	if (ext.indexOf('+xml') !== -1) {
+  		ext = ext.replace('+xml', '');
+  	}
+  	ext = ext.replace(/.*\//, '.')
+    cb(null, file.fieldname + '-' + Date.now() + ext)
+  }
+})
+ 
+const upload = multer({ storage: storage })
 
 module.exports = function(app) {
 	
@@ -24,10 +41,16 @@ module.exports = function(app) {
 	// 更新分类api
 	app.post('/admin/categories/:slug/update', User.signinRequired, User.adminRequired, Category.update);
 
-	// 获取数据 api
+	//  api
 	app.get('/getDocs', Admin.getDocs);
-
 	app.get('/getCategories', Admin.getCategories);
+
+	app.get('/api/u/verify', User.verifyLogin);
+
+	// 图片上传
+	app.get('/admin/photo/library', User.signinRequired, User.adminRequired, Photo.library)
+
+	app.post('/admin/photo/upload', User.signinRequired, User.adminRequired, upload.single('avatar'), Photo.upload)
 
 
 

@@ -42,7 +42,7 @@ export default class Routers extends Component {
 
                 {
 					datas.length > 0
-					? <Redirect from='/' to={'/' + firstPage}/>
+					? <Redirect exact from='/' to={'/' + firstPage}/>
 					: null
 				}
             </Switch>

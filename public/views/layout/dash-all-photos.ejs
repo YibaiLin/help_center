@@ -1,0 +1,21 @@
+<h3>图片库<button class="btn btn-outline-primary ml-3">新建</button></h3>
+<hr>
+<form class="form-inline" action="/admin/photo/upload" method="post" enctype="multipart/form-data">
+	<div class="form-group">
+		<label for="avatar">上传图片</label>
+		<input name="avatar" class="form-control" type="file">
+	</div>
+	<button class="btn btn-success" type="submit">上传</button>
+</form>
+
+<hr>
+<div class="photo-area">
+	<% for (var i=0; i<photos.length; i++) {%>
+		<div class="photo-lib-img-box float-left mr-3">
+			<img class="<% if (photos[i].wider) {%>wider-img<%} else {%>higher-img<%}%>" src="<%=photos[i].src%>" alt="<%=photos[i].originalname%>">
+		</div>
+	<%}%>
+</div>
+
+
+</div>

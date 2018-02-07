@@ -6545,3 +6545,22 @@ a.text-dark:focus, a.text-dark:hover {
   background-color: #F3F4F4;
   margin-left: 200px;
   margin-top: 56px; }
+
+.photo-lib-img-box {
+  position: relative;
+  width: 138px;
+  height: 138px;
+  overflow: hidden;
+  border-radius: 5px; }
+  .photo-lib-img-box img {
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0); }
+    .photo-lib-img-box img:hover {
+      opacity: 0.7; }
+  .photo-lib-img-box .wider-img {
+    max-height: 138px;
+    width: auto; }
+  .photo-lib-img-box .higher-img {
+    max-width: 138px;
+    height: auto; }

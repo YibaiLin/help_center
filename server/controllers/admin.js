@@ -6,6 +6,9 @@ exports.index = function(req, res) {
     const title = config.dashboard.title;
     const name = req.session.user.name;
 
+    console.log('dashboard sid: ' + req.sessionID)
+
+
     res.render('dashboard', {
         title: title,
         name: name

@@ -13,6 +13,7 @@ exports.showSignup = function(req, res){
 
 exports.showSignin = function(req, res){
 	const title = config.signin.title;
+	console.log('signin showpage sid: ' + req.sessionID)
 
     res.render('signin', {
         title: title
@@ -53,6 +54,8 @@ exports.signin = function(req, res) {
 	let _user = Object.assign({}, req.body);
 	let name = _user.name;
 	let password = _user.password;
+
+	console.log('signin sid: ' + req.sessionID)
 
 	User.findOne({name: name}, function(err, user) {
 		if (err) return console.log(err);
@@ -106,4 +109,22 @@ exports.adminRequired = function(req, res, next){
         return res.redirect('http://localhost:3000')
     }
     next()
+}
+
+exports.verifyLogin = function(req, res) {
+	let user = req.session.user;
+
+	console.log('checkLogin: ' + user)
+	console.log('verifyLogin sid: ' + req.sessionID)
+
+	if (!user) {
+		return res.send({
+			success: false,
+			msg: '用户未登录'
+		})
+	}
+	return res.send({
+			success: true,
+			data: user
+		})
 }
