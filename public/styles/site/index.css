@@ -6546,6 +6546,17 @@ a.text-dark:focus, a.text-dark:hover {
   margin-left: 200px;
   margin-top: 56px; }
 
+.uploadArea {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  border: 4px dashed #b4b9be; }
+
+#filePick {
+  width: 200px; }
+
 .photo-lib-img-box {
   position: relative;
   width: 138px;

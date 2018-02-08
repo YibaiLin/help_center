@@ -1,10 +1,16 @@
 <h3>图片库<button class="btn btn-outline-primary ml-3">新建</button></h3>
 <hr>
-<form class="form-inline" action="/admin/photo/upload" method="post" enctype="multipart/form-data">
+<form action="/admin/photo/upload" method="post" enctype="multipart/form-data">
 	<div class="form-group">
-		<label for="avatar">上传图片</label>
-		<input name="avatar" class="form-control" type="file">
+		<input id="fileInput" name="avatar" class="form-control d-block" type="file" accept="image/*">
+		<!-- <div class="uploadArea" id="dropbox">
+			<p class="mb-1 mt-4 text-bold">拖拽上传</p>
+			<small>or</small>
+			<button id="filePick" class="btn btn-outline-info my-3">选择文件</button>
+			<small class="text-muted mb-4">图片最大不超过：2MB</small>
+		</div> -->
 	</div>
+	<span id="fileChosen"></span>
 	<button class="btn btn-success" type="submit">上传</button>
 </form>
 

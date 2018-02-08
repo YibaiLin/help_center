@@ -18,7 +18,7 @@ const app = express();
 app.set('views', './public/views/pages');
 app.set('view engine', 'ejs');
 
-app.use(express.static(`${__dirname}/client/build`));
+// app.use(express.static(`${__dirname}/client/build`));
 app.use(express.static(`${__dirname}/public`));
 
 app.use(bodyParser.urlencoded({extended: false}));
@@ -36,11 +36,7 @@ app.use(session({
 
 require('./server/config/route')(app);
 
-app.use(function(req, res, next) {
-  res.render('404', {
-  	title: 'Edns-Not found'
-  });
-});
+
 
 const port = process.env.PORT || 5000;
 app.listen(port, () => console.log(`Listening on port ${port}`));

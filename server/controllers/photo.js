@@ -28,6 +28,7 @@ exports.library = async function(req, res) {
 
 exports.upload = function(req, res) {
 	const file = req.file;
+	
 
 	if (file) {
 		let wider = true;
@@ -63,6 +64,7 @@ exports.upload = function(req, res) {
 	}
 	else {
 		console.log('上传出错')
+		console.log(file)
 	}
 
 	return res.redirect('/admin/photo/library')

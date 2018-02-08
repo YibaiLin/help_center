@@ -1,8 +1,12 @@
+const Client = require('../controllers/client');
 const Admin = require('../controllers/admin');
 const User = require('../controllers/user');
 const Post = require('../controllers/post');
 const Photo = require('../controllers/photo');
 const Category = require('../controllers/category');
+
+const handle404 = require('../controllers/404');
+
 const multer = require('multer');
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -21,6 +25,8 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage })
 
 module.exports = function(app) {
+
+	
 	
 	app.get('/admin/dashboard', User.signinRequired, User.adminRequired, Admin.index);
 	app.get('/admin/all-posts', User.signinRequired, User.adminRequired, Admin.allPosts);
@@ -62,4 +68,10 @@ module.exports = function(app) {
     app.get('/admin/logout', User.logout)
     // app.get('/admin/user/list', User.signinRequired, User.adminRequired, User.list)
 
+
+    app.use(function(req, res, next) {
+	  
+	});
+	app.get('*', handle404);
+    app.get('/*', Client.index);
 }
