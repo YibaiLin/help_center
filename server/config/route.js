@@ -4,6 +4,7 @@ const User = require('../controllers/user');
 const Post = require('../controllers/post');
 const Photo = require('../controllers/photo');
 const Category = require('../controllers/category');
+const Dev = require('../controllers/developOnly');
 
 const handle404 = require('../controllers/404');
 
@@ -69,9 +70,10 @@ module.exports = function(app) {
     // app.get('/admin/user/list', User.signinRequired, User.adminRequired, User.list)
 
 
-    app.use(function(req, res, next) {
-	  
-	});
-	app.get('*', handle404);
+    // 操作数据库
+    app.get('/u/superadmin/mongo/', User.signinRequired, User.adminRequired, Dev.delPost)
+
+
+	// app.get('*', handle404);
     app.get('/*', Client.index);
 }

@@ -1,4 +1,5 @@
 const Post = require('../models/post');
+const Photo = require('../models/photo');
 const Category = require('../models/category');
 const config = require('../config/config');
 
@@ -12,12 +13,14 @@ exports.action = async function(req, res) {
 
     	let categories = await Category.find().exec();
     	let post = await Post.findOne({path: _path}).populate('category').exec();
+        const photos = await Photo.find().exec()
 
         res.render('edit-post', {
         	title: webpageTitle,
         	name: user,
         	post: post,
-        	categories: categories
+        	categories: categories,
+            photos: photos
         })
     }
 
@@ -114,10 +117,12 @@ exports.addNew = async function(req, res) {
     const title = config.edit.title;
     const name = req.session.user.name;
     const categories = await Category.find().exec()
+    const photos = await Photo.find().exec()
 
     res.render('add-new', {
         title: title,
         name: name,
-        categories: categories
+        categories: categories,
+        photos: photos
     });
 }

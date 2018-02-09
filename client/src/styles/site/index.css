@@ -6041,6 +6041,7 @@ header {
   padding-right: 6rem; }
 
 .sidebar {
+  width: 30%;
   position: fixed;
   top: 4rem;
   right: 0;
@@ -6097,6 +6098,15 @@ header {
       font-weight: 700; }
       .sidebar .collapse-box .multi-collapse .focus-style:hover {
         color: #6d6d6d; }
+
+.mdBox img {
+  max-width: 100%;
+  display: block;
+  margin: 15px auto; }
+
+.mdBox h1, .mdBox h2, .mdBox h3, .mdBox h4, .mdBox h5, .mdBox h6 {
+  margin-top: 30px;
+  margin-bottom: 30px; }
 
 #footer {
   margin-top: 30px;

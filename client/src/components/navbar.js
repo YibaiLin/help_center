@@ -59,13 +59,13 @@ export default class Navbar extends Component {
                     
                             ?   <ul className="nav navbar-nav mr-3 ml-5">
                                     <li className="nav-item text-muted py-2">您好，{user.name}</li>
-                                    <li className="nav-item "><a className="nav-link"  href="http://localhost:5000/admin/dashboard">控制台</a></li>
+                                    <li className="nav-item "><a className="nav-link"  href="http://helptest.edns.com/admin/dashboard">控制台</a></li>
                                 </ul>
 
                             :    <ul className="nav navbar-nav mr-3 ml-5">
-                                    <li className="nav-item "><a className="nav-link"  href="http://localhost:5000/signin">登录</a></li>
+                                    <li className="nav-item "><a className="nav-link"  href="http://helptest.edns.com/signin">登录</a></li>
                                     <li className="nav-item text-muted py-2">或</li>
-                                    <li className="nav-item "><a className="nav-link" href="http://localhost:5000/signup">注册</a></li>
+                                    <li className="nav-item "><a className="nav-link" href="http://helptest.edns.com/signup">注册</a></li>
                                 </ul>
                           }
                     

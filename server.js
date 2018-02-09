@@ -18,7 +18,7 @@ const app = express();
 app.set('views', './public/views/pages');
 app.set('view engine', 'ejs');
 
-// app.use(express.static(`${__dirname}/client/build`));
+app.use(express.static(`${__dirname}/client/build`));
 app.use(express.static(`${__dirname}/public`));
 
 app.use(bodyParser.urlencoded({extended: false}));

@@ -49,6 +49,7 @@ header {
 
 
 .sidebar {
+	width: 30%;
 	position: fixed;
 	top: 4rem;
 	right: 0;
@@ -136,6 +137,21 @@ header {
 		}
 	}
 
+}
+
+// markdown 渲染成 html 后的样式
+
+.mdBox {
+	img {
+		max-width: 100%;
+		display: block;
+		margin: 15px auto;
+	}
+
+	h1,h2,h3,h4,h5,h6 {
+		margin-top: 30px;
+		margin-bottom: 30px;
+	}
 }
 
 

@@ -140,7 +140,7 @@ export default class Sidebar extends Component {
 		const titles = this.state.titles;
 		console.log('当前Title: title: ' + this.state.currentTitle + ', 当前POST：{ title: ' + this.state.currentPost.tId + ', post: ' + this.state.currentPost.pId + ' }')
 		return (
-			<div id="sidebar" className='col-4 py-5 pl-5 sidebar'>
+			<div id="sidebar" className='py-5 pl-5 sidebar'>
 				{titles.map(title => 
 					<Title key={title._id} data={title} currentTitle={this.state.currentTitle} 
 						currentPost={this.state.currentPost} changeCurrent={this._changeCurrent}/>

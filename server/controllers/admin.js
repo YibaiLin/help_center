@@ -18,7 +18,7 @@ exports.index = function(req, res) {
 exports.allPosts = async function(req, res) {
     const title = config.edit.title;
     const name = req.session.user.name;
-    const posts = await Post.find().populate('category').exec();
+    const posts = await Post.find({}).populate('category').exec();
 
     res.render('all-posts', {
         title: title,

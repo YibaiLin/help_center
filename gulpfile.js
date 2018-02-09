@@ -6,7 +6,7 @@ var sass = require('gulp-ruby-sass');
 
 var paths = {
 	styles: {
-		src: 'public/styles/site/**.scss',
+		src: 'public/styles/site/**/**.scss',
 		dest: 'public/styles/site/',
 		destDel: 'public/styles/site/**.css'
 	}

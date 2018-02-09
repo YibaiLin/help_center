@@ -6562,7 +6562,8 @@ a.text-dark:focus, a.text-dark:hover {
   width: 138px;
   height: 138px;
   overflow: hidden;
-  border-radius: 5px; }
+  border-radius: 5px;
+  cursor: pointer; }
   .photo-lib-img-box img {
     position: absolute;
     left: 50%;
@@ -6575,3 +6576,6 @@ a.text-dark:focus, a.text-dark:hover {
   .photo-lib-img-box .higher-img {
     max-width: 138px;
     height: auto; }
+
+.checkMark {
+  display: none; }

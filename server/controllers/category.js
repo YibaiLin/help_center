@@ -63,8 +63,15 @@ exports.action = async function(req, res) {
 	}
 
 	if (action === 'delete') {
-		await Category.deleteOne({slug: _slug}).exec();
-		console.log('删除成功')
+		console.log('slug : ' + _slug)
+		let category_1 = await Category.deleteOne({slug: _slug}).exec();
+
+		if (category_1) {
+			console.log('删除成功')
+		}
+		else {
+			console.log('未找到对应分类，删除失败')
+		}
 		return res.redirect('/admin/all-categories')
 	}
 

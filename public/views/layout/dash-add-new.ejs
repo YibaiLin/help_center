@@ -13,6 +13,9 @@
 	</select>
 </div>
 <div class="form-group">
+  <span id="addPhoto" class="btn btn-out-line form-control w-25" data-toggle="modal" data-target="#pickPhotoModal">添加图片</span>
+</div>
+<div class="form-group">
   <textarea name="content" type="textarea" class="form-control" rows="24"></textarea>
 </div>
 <div class="form-group">
@@ -20,3 +23,34 @@
 </div>
 </form>
 </div>
+
+<div class="modal fade" id="pickPhotoModal" tabindex="-1">
+	<div class="modal-dialog" style="max-width:75%;">
+	    <div class="modal-content">
+
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+
+				<div id="photoModal" class="modal-body">
+						<% for (var i=0; i<photos.length; i++) {%>
+							<div class="d-flex flex-column justify-content-center align-items-center float-left m-3 " style="width: 138px;">
+								<div class="photo-lib-img-box float-left mb-3 pickedPhoto">
+									<img class="<% if (photos[i].wider) {%>wider-img<%} else {%>higher-img<%}%>" src="<%=photos[i].src%>" alt="<%=photos[i].originalname%>">
+								</div>
+								<img src="/image/check.svg" class="checkMark" style="display: block; opacity: 0">
+							</div>
+						<%}%>
+				</div>
+
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+	        <button id="addImgPath" type="button" class="btn btn-primary">确定</button>
+	      </div>
+	    </div>
+	</div>
+</div>
+
