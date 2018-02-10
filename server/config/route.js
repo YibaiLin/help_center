@@ -57,7 +57,7 @@ module.exports = function(app) {
 	// 图片上传
 	app.get('/admin/photo/library', User.signinRequired, User.adminRequired, Photo.library)
 
-	app.post('/admin/photo/upload', User.signinRequired, User.adminRequired, upload.single('avatar'), Photo.upload)
+	app.post('/admin/photo/upload', User.signinRequired, User.adminRequired, upload.array('avatar', 12), Photo.upload)
 
 
 

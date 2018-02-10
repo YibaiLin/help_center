@@ -26,45 +26,45 @@ exports.library = async function(req, res) {
 	}
 }
 
-exports.upload = function(req, res) {
-	const file = req.file;
-	
+exports.upload = async function(req, res) {
+	const files = req.files;
 
-	if (file) {
-		let wider = true;
-		const path = file.destination + file.filename;
+	if (files.length > 0 ) {
+		for (var i=0; i < files.length; i++) {
+			let file = files[i];
+			let wider = true;
+			let path = file.destination + file.filename;
 
-		console.log('path' + path);
+			sizeOf(path)
+				.then(dimensions => {
+					if (dimensions.width > dimensions.height) {
+						wider = true;
+					}
+					else {
+						wider = false;
+					}
+				})
+				.catch(err => console.log(err));
 
-		sizeOf(path)
-			.then(dimensions => {
-				if (dimensions.width > dimensions.height) {
-					wider = true;
-				}
-				else {
-					wider = false;
-				}
+
+			let photo = new Photo({
+				src: '/image/' + file.filename,
+				filename: file.filename,
+				mimetype: file.mimetype,
+				originalname: file.originalname,
+				size: file.size,
+				wider: wider
 			})
-			.catch(err => console.log(err));
 
+			await photo.save(function(err, photo) {
+				if (err) return console.log(err);
+				console.log('图片保存成功')
+			})
+		}
 
-		const photo = new Photo({
-			src: '/image/' + file.filename,
-			filename: file.filename,
-			mimetype: file.mimetype,
-			originalname: file.originalname,
-			size: file.size,
-			wider: wider
-		})
-
-		photo.save(function(err, photo) {
-			if (err) return console.log(err);
-			console.log('图片保存成功')
-		})
 	}
 	else {
 		console.log('上传出错')
-		console.log(file)
 	}
 
 	return res.redirect('/admin/photo/library')
