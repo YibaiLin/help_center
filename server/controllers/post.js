@@ -25,9 +25,9 @@ exports.action = async function(req, res) {
     }
 
     if (action === 'delete') {
-        let post = await Post.findOne({path: _path}).populate('category').exec();
+        let _post = await Post.findOne({path: _path}).populate('category').exec();
 
-        let _docs =  post.category.docs;
+        let _docs =  _post.category.docs;
         
         for (var i=0; i < _docs.length; i++) {
             if (_docs[i].str === _post._id.str) {
@@ -36,7 +36,7 @@ exports.action = async function(req, res) {
             }
         }
 
-        await Category.findOneAndUpdate({name: post.category.name}, {$set: {docs: _docs}}).exec();
+        await Category.findOneAndUpdate({name: _post.category.name}, {$set: {docs: _docs}}).exec();
 
         await Post.deleteOne({path: _path}).exec()  
 

@@ -31,7 +31,7 @@ exports.allCategories = async function(req, res) {
     const title = config.edit.title;
     const name = req.session.user.name;
 
-    const categories = await Category.find({}).exec();
+    const categories = await Category.find({}).populate('docs').exec();
 
     res.render('all-categories', {
         title: title,

@@ -15,12 +15,22 @@
 </form>
 
 <hr>
+<div class="bg-white p-3 mb-3 rounded">
+	<button id="multiSelect" class="btn btn-outline-info">选择多个</button>
+</div>
+<div id="actionBox" class="bg-white p-3 mb-3 rounded" style="display: none;">
+	<button id="resetSelect" class="btn btn-outline-primary mr-2">撤销选择</button>
+	<button id="confirmDelete" class="btn btn-danger">确认删除</button>
+</div>
 <div class="photo-area">
 	<% for (var i=0; i<photos.length; i++) {%>
-		<div class="photo-lib-img-box float-left mr-3">
-			<img class="<% if (photos[i].wider) {%>wider-img<%} else {%>higher-img<%}%>" src="<%=photos[i].src%>" alt="<%=photos[i].originalname%>">
-		</div>
-	<%}%>
+      <div class="d-flex flex-column justify-content-center align-items-center float-left m-3 " style="width: 138px;">
+        <div class="photo-lib-img-box float-left mb-3 pickedPhoto">
+          <img class="<% if (photos[i].wider) {%>wider-img<%} else {%>higher-img<%}%>" src="<%=photos[i].src%>" alt="<%=photos[i].originalname%>">
+        </div>
+        <img src="/image/check.svg" class="checkMark" style="display: block; opacity: 0">
+      </div>
+    <%}%>
 </div>
 
 

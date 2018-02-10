@@ -47,6 +47,7 @@ module.exports = function(app) {
 	app.get('/admin/categories', User.signinRequired, User.adminRequired, Category.action);
 	// 更新分类api
 	app.post('/admin/categories/:slug/update', User.signinRequired, User.adminRequired, Category.update);
+	app.get('/admin/categories/:slug/moveout', User.signinRequired, User.adminRequired, Category.moveout);
 
 	//  api
 	app.get('/getDocs', Admin.getDocs);
@@ -73,6 +74,9 @@ module.exports = function(app) {
     // 操作数据库
     app.get('/u/superadmin/mongo/posts/', User.signinRequired, User.adminRequired, Dev.delPost)
     app.get('/u/superadmin/mongo/getPosts', User.signinRequired, User.adminRequired, Dev.getPosts)
+    app.get('/u/superadmin/mongo/showPost', User.signinRequired, User.adminRequired, Dev.showPost)
+    app.get('/u/superadmin/mongo/setCategory', User.signinRequired, User.adminRequired, Dev.setCategory)
+    app.get('/u/superadmin/mongo/changeCategory', User.signinRequired, User.adminRequired, Dev.changeCategory)
 
 
 	// app.get('*', handle404);

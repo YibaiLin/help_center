@@ -30,8 +30,6 @@ exports.update = async function(req, res) {
 	const name = req.body.category;
 	const _slug = req.params.slug;
 
-	console.log('params.slug is  ' + _slug)
-
 	let category = await Category.findOneAndUpdate({slug: _slug}, {$set: {name: name, slug: name.replace(/\s/g, '-')}}).exec();
 
 	if (category) {
@@ -77,4 +75,38 @@ exports.action = async function(req, res) {
 
 	console.log('Are we here?')
 	return res.redirect('/admin/all-categories');
+}
+
+exports.moveout = async function(req, res) {
+	const _slug = req.params.slug;
+	const _path = req.query.post;
+
+	const category = await Category.findOne({slug: _slug}).exec();
+	const post = await Post.findOne({path: _path}).exec();
+
+	if (category && post) {
+		let docs = category.docs;
+		let id = post._id;
+
+		for (var i=0; i<docs.length; i++) {
+			if (docs[i] === id) {
+				docs.splice(i, 1);
+				return;
+			}
+		}
+
+		await category.save();
+
+		return res.send({
+			success: true,
+			msg: '成功从' + category.name + '中移出' + post.title
+		})
+
+	}
+	else {
+		return res.send({
+			success: false,
+			msg: '移出操作失败'
+		})
+	}
 }

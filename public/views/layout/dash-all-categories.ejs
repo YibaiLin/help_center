@@ -28,7 +28,7 @@
 		<% for (var i=0; i < categories.length; i++) {%>
 			<tr>
 				<td scope="row"><%=i+1%></td>
-				<td><a href="#" class="list-none"><%=categories[i].name%></a></td>
+				<td><span class="category" data-toggle="modal" data-target="#categoriesModal<%=[i]%>"><%=categories[i].name%></span></td>
 				<td><%=(new Date(categories[i].meta.updateAt)).toLocaleDateString()%></td>
 				<td><a class="mr-3 text-primary" href="/admin/categories?category=<%=categories[i].slug %>&action=modify">修改</a><a class="text-danger" href="/admin/categories?category=<%=categories[i].slug %>&action=delete">删除</a></td>
 			</tr>
@@ -37,3 +37,50 @@
 </table>
 
 </div>
+
+<% for (var i=0; i < categories.length; i++) {%>
+	<div class="modal fade" id="categoriesModal<%=[i]%>" tabindex="-1">
+	<div class="modal-dialog" style="max-width:75%;">
+	    <div class="modal-content">
+
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+
+				<div id="categoryPostModal" class="modal-body">
+						<table class="table table-hover mt-3 bg-white">
+							<thead class="bg-primary text-white">
+								<tr>
+									<td scope="col">序号</td>
+									<td scope="col">标题</td>
+									<td scope="col">作者</td>
+									<td scope="col">更新日期</td>
+									<td scope="col">操作</td>
+								</tr>
+							</thead>
+							<tbody class="text-secondary">
+								<%var posts = categories[i].docs; for (var j=0; j < posts.length; j++) {%>
+									<tr>
+										<td scope="row"><%=j+1%></td>
+										<td><a href="/<%=posts[j].path %>" class="list-none"><%=posts[j].title %></a></td>
+										<td><%=posts[j].author %></td>
+										
+										<td><a class="mr-3 text-primary" href="/admin/posts?post=<%=posts[j].path %>&action=modify">更新</a><a class="text-danger moveout" href="/admin/categories/<%=categories[i].slug%>/moveout?post=<%=posts[j].path %>">移出该分类</a></td>
+									</tr>
+								<%}%>
+							</tbody>
+						</table>
+				</div>
+
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+	        <button id="addImgPath" type="button" class="btn btn-primary">确定</button>
+	      </div>
+	    </div>
+	</div>
+</div>
+<%}%>
+

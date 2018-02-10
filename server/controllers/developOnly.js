@@ -48,3 +48,110 @@ exports.getPosts = async function(req, res) {
 
 	return res.send(html);
 }
+
+exports.showPost = async function(req, res) {
+	const _title = req.query.title;
+
+	const post = await Post.findOne({title: _title}).populate('category').exec();
+
+	if (post) {
+		let html = '';
+		html += '<h5>title:  ' + post.title + '</h5>';
+		html += '<h5>path:  ' + post.path + '</h5>';
+		html += '<h5>_id:  ' + post._id + '</h5>';
+		html += '<h5>category._id:  ' + post.category._id + '</h5>';
+		html += '<textarea style="width: 80%;" rows="40" >' + post.content + '</textarea>';
+
+		return res.send(html);
+	}
+	else {
+		return res.send('<h1>something wrong</h1>')
+	}
+}
+
+exports.setCategory = async function(req, res) {
+	const _name = req.query.name;
+	const key = req.query.key;
+	const val = req.query.val;
+	let html = '';
+
+	const category = await Category.findOne({name: _name}).exec();
+
+
+	if(category && (key in category)) {
+
+		html += '<h5>' + _name + ' 原来的 ' + key + ' :  ' + category[key]+ '</h5>';
+		category[key] = val;
+
+		await category.save()
+	}
+	else {
+		return res.send('<h1>something wrong: ' + key + ' in ' + _name + ': ' + (key in category) + '</h1>')
+	}
+
+	let filter = {};
+
+	if (key !== 'name') {
+		filter = {
+			name: _name
+		}
+	}
+	else {
+		filter = {
+			_id: category._id
+		}
+	}
+
+	const newCategory = await Category.findOne(filter).exec();
+
+	if (newCategory) {
+		html += '<h5>' + _name + ' 原来的 ' + key + ' :  ' + category[key]+ '</h5>';
+
+		return res.send(html)
+	}
+	else {
+		return res.send('<h1>something wrong when making the second seach</h1>')
+	}
+}
+
+exports.changeCategory = async function(req, res) {
+	const old = req.query.old;
+	const temp = req.query.temp;
+	let html = '<h1>原来分类 ' + old + ' 有文章如下：</h1>';
+
+	const posts = await Post.find({}).populate('category', {name: old}).exec();
+	const tempCategory = await Category.findOne({name: temp}).exec();
+
+
+
+
+	if (posts.length > 0 && tempCategory) {
+		let temp_docs = tempCategory.docs;
+		const temp_id = tempCategory._id;
+
+		for(var i=0; i<posts.length; i++) {
+			let _post = posts[i];
+
+			html += '<h5>post: ' + _post.title + ', _id: ' + _post._id + '</h5>';
+
+			_post.category = temp_id;
+
+			temp_docs.push(_post._id);
+
+			await _post.save();
+		}
+
+		await tempCategory.save();
+
+		let tempNew = await Category.findOne({name: temp}).exec();
+
+		if (tempNew) {
+			html += '<h3>' + temp + ' 现在的 docs: ' + tempNew.docs + '</h3>';
+		}
+
+		return res.send(html);
+	}
+	else {
+		return res.send('<h1>something wrong</h1>')
+	}
+}
