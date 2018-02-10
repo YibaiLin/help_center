@@ -71,7 +71,8 @@ module.exports = function(app) {
 
 
     // 操作数据库
-    app.get('/u/superadmin/mongo/', User.signinRequired, User.adminRequired, Dev.delPost)
+    app.get('/u/superadmin/mongo/posts/', User.signinRequired, User.adminRequired, Dev.delPost)
+    app.get('/u/superadmin/mongo/getPosts', User.signinRequired, User.adminRequired, Dev.getPosts)
 
 
 	// app.get('*', handle404);

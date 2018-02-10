@@ -35,7 +35,7 @@ export default class Routers extends Component {
 				
                 {datas.map(data => {
 
-                	let comp = () => (<div><ReactMarkdown className='mdBox' escapeHtml="false" source={data.content}/></div>);
+                	let comp = () => (<div><ReactMarkdown className='mdBox' source={data.content}/></div>);
 
                 	return <Route key={data._id} path={'/' + data.path} component={comp} />
                 })}

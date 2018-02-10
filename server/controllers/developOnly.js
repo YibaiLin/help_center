@@ -26,7 +26,6 @@ exports.delPost = async function(req, res) {
 	}
 	else if (del === '1' && _title !== '') {
 		let post = await Post.deleteOne({title: _title}).exec();
-		console.log('删除情况： ' + post);
 
 		if (post) {
 			return res.send('<h1>已删除 ' + _title + '</h1>');
@@ -35,4 +34,17 @@ exports.delPost = async function(req, res) {
 			return res.send('未能删除 ' + _title )
 		}
 	}
+}
+
+
+exports.getPosts = async function(req, res) {
+	const posts = await Post.find({}).exec();
+
+	let html = '';
+
+	posts.forEach(post => {
+		html += '<h1>' + post.title + '</h1>';
+	})
+
+	return res.send(html);
 }
