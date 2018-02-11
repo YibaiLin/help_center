@@ -28,15 +28,24 @@ exports.action = async function(req, res) {
         let _post = await Post.findOne({path: _path}).populate('category').exec();
 
         let _docs =  _post.category.docs;
-        
-        for (var i=0; i < _docs.length; i++) {
-            if (_docs[i].str === _post._id.str) {
-                _docs.splice(i, 1);
-                i--;
+        let _name = _post.category.name;
+
+        const _category = await Category.findOne({name: _name}).populate('docs').exec();
+        const posts = _category.docs;
+
+        // 从原分类中剔除旧文章
+        if (posts.length > 0) {
+            for (var i=0; i < posts.length; i++) {
+
+                if (posts[i].id === _post.id) {
+                    _docs.splice(i, 1);
+                    break;
+                }
             }
         }
 
-        await Category.findOneAndUpdate({name: _post.category.name}, {$set: {docs: _docs}}).exec();
+
+        await Category.findOneAndUpdate({name: _name}, {$set: {docs: _docs}}).exec();
 
         await Post.deleteOne({path: _path}).exec()  
 

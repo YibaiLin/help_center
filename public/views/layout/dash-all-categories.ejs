@@ -68,7 +68,7 @@
 										<td><a href="/<%=posts[j].path %>" class="list-none"><%=posts[j].title %></a></td>
 										<td><%=posts[j].author %></td>
 										<td><%=(new Date(posts[j].meta.updateAt)).toLocaleDateString()%></td>
-										<td><a class="mr-3 text-primary" href="/admin/posts?post=<%=posts[j].path %>&action=modify">更新</a><a class="text-danger moveout" href="/admin/categories/<%=categories[i].slug%>/moveout?post=<%=posts[j].path %>">移出该分类</a></td>
+										<td><a class="mr-3 text-primary" href="/admin/posts?post=<%=posts[j].path %>&action=modify">更新</a></td>
 									</tr>
 								<%}%>
 							</tbody>

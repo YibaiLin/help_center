@@ -1,65 +1,13 @@
 
 
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.js"></script>
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script> -->
+    
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.min.js" integrity="sha384-a5N7Y/aK3qNeh15eJKGWxsqtnX/wWdSZSKp+81YjTmS15nvnvxKHuzaWwXHDli+4" crossorigin="anonymous"></script>
 
-    <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
-	
-	<script>
-		$(function() {
-
-			var path = location.pathname;
-
-			$(".child-link").each(function() {
-				var href = $(this).attr('href');
-
-				if (href === path) {
-					$(this).parent().show();
-					$(this).find('.child-name').addClass('child-focus').next('.triangle').show();
-				}
-				// else {
-				// 	var siblings = $(this).siblings('.child-link');
-				// 	var len = $(this).siblings('.child-link').length;
-
-				// 	var isMatch = Array.prototype.some.call(siblings, function(item) {
-				// 		return item.getAttribute('href') === path
-				// 	})
-
-				// 	console.log('isMatch: ' + isMatch);
-
-				// 	if (!isMatch) {
-				// 		$(this).parent().hide();
-				// 	}
-				// 	else {
-				// 		$(this).parent().show();
-				// 	}
-				// 	$(this).find('.triangle').hide();
-				// }
-			})
-
-			$(".left-sidebar button").click(function() {
-
-				if ($(this).attr('class').indexOf('active') === -1) {
-					$(".left-sidebar button").removeClass('active');
-					$(".child-item").hide();
-
-					$(this).addClass('active');
-					$(this).next('div.child-item').show();
-				}
-				else {
-					$(".left-sidebar button").removeClass('active');
-					$(".child-item").hide();
-				}
-			});
-		})
-	</script>
+	<script src="/js/sidebar.js"></script>
 	<script src="/js/upload.js"></script>
 	<script src="/js/editor.js"></script>
 	<script src="/js/photo.js"></script>
-	<script src="/js/category.js"></script>
   </body>
 </html>

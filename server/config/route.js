@@ -47,7 +47,6 @@ module.exports = function(app) {
 	app.get('/admin/categories', User.signinRequired, User.adminRequired, Category.action);
 	// 更新分类api
 	app.post('/admin/categories/:slug/update', User.signinRequired, User.adminRequired, Category.update);
-	app.get('/admin/categories/:slug/moveout', User.signinRequired, User.adminRequired, Category.moveout);
 
 	//  api
 	app.get('/getDocs', Admin.getDocs);
