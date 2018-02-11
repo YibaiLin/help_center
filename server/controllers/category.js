@@ -73,6 +73,5 @@ exports.action = async function(req, res) {
 		return res.redirect('/admin/all-categories')
 	}
 
-	console.log('Are we here?')
 	return res.redirect('/admin/all-categories');
 }

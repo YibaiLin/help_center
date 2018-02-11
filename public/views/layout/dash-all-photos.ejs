@@ -24,11 +24,12 @@
 </div>
 <div class="photo-area">
 	<% for (var i=0; i<photos.length; i++) {%>
-      <div class="d-flex flex-column justify-content-center align-items-center float-left m-3 " style="width: 138px;">
+      <div class="m-3 photo-wrap">
         <div class="photo-lib-img-box float-left mb-3 pickedPhoto">
           <img class="<% if (photos[i].wider) {%>wider-img<%} else {%>higher-img<%}%>" src="<%=photos[i].src%>" alt="<%=photos[i].originalname%>">
         </div>
-        <img src="/image/check.svg" class="checkMark" style="display: block; opacity: 0">
+        <!-- <img src="/image/check.svg" class="checkMark"> -->
+        <div class="square"></div>
       </div>
     <%}%>
 </div>
