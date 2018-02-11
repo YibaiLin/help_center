@@ -2,10 +2,13 @@ $(function() {
 	$(".moveout").click(function(e) {
 		e.preventDefault();
 		var url = $(this).attr('href');
+		var that = $(this);
 
-		jQuery.get(url, function(res, status) {
+		$.get(url, function(res, status) {
+			console.log(status);
 			if(res && res.success) {
-				$(this).parent().remove();
+				console.log('移出操作成功')
+				that.parents("tr").remove();
 			}
 			else {
 				console.log('移出操作失败')

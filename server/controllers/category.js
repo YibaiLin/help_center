@@ -81,19 +81,23 @@ exports.moveout = async function(req, res) {
 	const _slug = req.params.slug;
 	const _path = req.query.post;
 
+
 	const category = await Category.findOne({slug: _slug}).exec();
 	const post = await Post.findOne({path: _path}).exec();
 
 	if (category && post) {
+		console.log('进入匹配阶段');
 		let docs = category.docs;
 		let id = post._id;
 
 		for (var i=0; i<docs.length; i++) {
-			if (docs[i] === id) {
+			if (docs[i].str === id.str) {
 				docs.splice(i, 1);
-				return;
+				break;
 			}
 		}
+
+		category.docs = docs;
 
 		await category.save();
 
@@ -104,7 +108,7 @@ exports.moveout = async function(req, res) {
 
 	}
 	else {
-		return res.send({
+		return res.status(401).send({
 			success: false,
 			msg: '移出操作失败'
 		})

@@ -3,6 +3,8 @@
 const Post = require('../models/post');
 const Photo = require('../models/photo');
 const Category = require('../models/category');
+const fs = require('fs');
+const path = require('path');
 
 exports.delPost = async function(req, res) {
 	const del = req.query.del;
@@ -44,6 +46,20 @@ exports.getPosts = async function(req, res) {
 
 	posts.forEach(post => {
 		html += '<h1>' + post.title + '</h1>';
+		html += '<h1>' + post.meta.updateAt + '</h1>';
+	})
+
+	return res.send(html);
+}
+
+exports.getCategories = async function(req, res) {
+	const cates = await Category.find({}).exec();
+
+	let html = '';
+
+	cates.forEach(cate => {
+		html += '<h1>' + cate.name + '</h1>';
+		html += '<h1>' + cate.docs + '</h1>';
 	})
 
 	return res.send(html);
@@ -60,6 +76,7 @@ exports.showPost = async function(req, res) {
 		html += '<h5>path:  ' + post.path + '</h5>';
 		html += '<h5>_id:  ' + post._id + '</h5>';
 		html += '<h5>category._id:  ' + post.category._id + '</h5>';
+		html += '<h3>update Time: ' + post.meta.updateAt + '</h3>';
 		html += '<textarea style="width: 80%;" rows="40" >' + post.content + '</textarea>';
 
 		return res.send(html);
@@ -154,4 +171,20 @@ exports.changeCategory = async function(req, res) {
 	else {
 		return res.send('<h1>something wrong</h1>')
 	}
+}
+
+exports.copyPosts = async function(req, res) {
+	const posts = await Post.find({}).exec();
+
+	const sources = posts;
+
+	let html = '';
+
+	for (let i=0; i< sources.length; i++) {
+		let source = sources[i];
+		html += '<h4>' + (i + 1) + '  ' + source.title + '</h4>';
+		html += '<textarea style="width: 80%" rows="40">' + source.content + '</textarea>'
+	}
+
+	return res.send(html);
 }

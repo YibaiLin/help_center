@@ -74,10 +74,11 @@ module.exports = function(app) {
     // 操作数据库
     app.get('/u/superadmin/mongo/posts/', User.signinRequired, User.adminRequired, Dev.delPost)
     app.get('/u/superadmin/mongo/getPosts', User.signinRequired, User.adminRequired, Dev.getPosts)
+    app.get('/u/superadmin/mongo/getCategories', User.signinRequired, User.adminRequired, Dev.getCategories)
     app.get('/u/superadmin/mongo/showPost', User.signinRequired, User.adminRequired, Dev.showPost)
     app.get('/u/superadmin/mongo/setCategory', User.signinRequired, User.adminRequired, Dev.setCategory)
     app.get('/u/superadmin/mongo/changeCategory', User.signinRequired, User.adminRequired, Dev.changeCategory)
-
+    app.get('/u/superadmin/mongo/copyPosts', User.signinRequired, User.adminRequired, Dev.copyPosts)
 
 	// app.get('*', handle404);
     app.get('/*', Client.index);

@@ -78,7 +78,7 @@ exports.signin = function(req, res) {
 				return res.redirect('/admin/dashboard');
 			}
 
-			return res.redirect('http://localhost:3000')
+			return res.redirect('/')
 
 		})
 	})
@@ -89,7 +89,7 @@ exports.signin = function(req, res) {
 exports.logout = function (req, res) {
     delete req.session.user;
 
-    res.redirect('http://localhost:3000')
+    res.redirect('/')
 }
 
 exports.signinRequired = function(req, res, next) {
@@ -106,7 +106,7 @@ exports.adminRequired = function(req, res, next){
     let user = req.session.user
 
     if(user.role < 10) {
-        return res.redirect('http://localhost:3000')
+        return res.redirect('/')
     }
     next()
 }
@@ -114,8 +114,8 @@ exports.adminRequired = function(req, res, next){
 exports.verifyLogin = function(req, res) {
 	let user = req.session.user;
 
-	console.log('checkLogin: ' + user)
-	console.log('verifyLogin sid: ' + req.sessionID)
+	// console.log('checkLogin: ' + user)
+	// console.log('verifyLogin sid: ' + req.sessionID)
 
 	if (!user) {
 		return res.send({

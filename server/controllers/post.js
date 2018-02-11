@@ -55,30 +55,37 @@ exports.update = async function(req, res) {
     const _path = req.params.post;
     const _post = await Post.findOne({path: _path}).populate('category').exec();
 
-    let _docs =  _post.category.docs;
+    let _name =  _post.category.name;
+    let _docs = _post.category.docs;
+    const _category = await Category.findOne({name: _name}).populate('docs').exec();
+    const posts = _category.docs;
 
-    for (var i=0; i < _docs.length; i++) {
-        if (_docs[i].str === _post._id.str) {
-            _docs.splice(i, 1);
-            i--;
+    // 从原分类中剔除旧文章
+    if (posts.length > 0) {
+        for (var i=0; i < posts.length; i++) {
+
+            if (posts[i].id === _post.id) {
+                _docs.splice(i, 1);
+                break;
+            }
         }
     }
 
-    await Category.findOneAndUpdate({name: _post.category.name}, {$set: {docs: _docs}}).exec();
+    await Category.findOneAndUpdate({name: _name}, {$set: {docs: _docs}}).exec();
 
-
+    // 将文章添加到新的分类中
     let category1 = await Category.findOne({name: category}).exec()
-    let postUpdated = await Post.findOneAndUpdate({path: _path}, {
+    category1.docs.push(_post._id);
+    await category1.save();
+
+    // 更新文章的内容
+    await Post.findOneAndUpdate({path: _path}, {$set:{
         category: category1._id,
         title: title,
         path: title.replace(/\s/g, '-') + '.html',
         content: content,
         author: author
-    }, {new: true}).exec()
-
-    category1.docs.push(postUpdated._id);
-
-    await category1.save();
+    }}).exec()
 
     return res.redirect('/admin/all-posts');
 }
@@ -92,9 +99,7 @@ exports.publish = async function(req, res) {
     let category1 = await Category.findOne({name: category}).exec()
 
     if (!category1) {
-        category1 = new Category({
-          name: category
-        })
+        console.log('必须选择一个分类')
     }
 
     let post1 = new Post({
@@ -105,10 +110,16 @@ exports.publish = async function(req, res) {
         author: author
     });
 
+    console.log('new Post 会生成_id 吗？post1._id: ' + post1._id)
+    await post1.save();
+    
+    let post2 = await Post.find({title: title}).exec();
+
+    console.log('new Post 会生成_id 吗？post2._id: ' + post2._id)
+
     category1.docs.push(post1._id);
     await category1.save();
 
-    await post1.save();
 
     return res.redirect('/admin/all-posts')
 }
